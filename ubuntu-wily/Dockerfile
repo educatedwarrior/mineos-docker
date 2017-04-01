@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y \
   git \
   curl \
   rlwrap \
+  vim \
+  net-tools \
+  openssh-server \ 
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #install node from nodesource
@@ -33,6 +36,11 @@ RUN cd /usr/games/minecraft \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  
+# enable ssh  
+#RUN sed -i.bak 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config \
+#  && sed -i.bak 's/PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config \
+#  && systemctl enable ssh.socket \ 
 
 #configure and run supervisor
 RUN cp /usr/games/minecraft/init/supervisor_conf /etc/supervisor/conf.d/mineos.conf
